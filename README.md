@@ -10,6 +10,8 @@ One kind of machine learning method that draws inspiration from the structure of
 
 ## Neural Network Model
 
+![nn model](https://github.com/user-attachments/assets/2a9f2f1a-e17c-4747-8368-4844a8fc151f)
+
 This layer has a single neuron (R¹ indicates that one-dimensional data is accepted). This implies that there is probably only one feature or predictor variable in your dataset.Add the schematic for the neural network model.R2 indicates that each layer has two-dimensional output, and there are two hidden layers, each containing two neurons. These layers analyze the incoming data and identify intricate patterns in it.Regression problems often include a single numerical result being predicted by the model, as evidenced by the final layer's single neuron.
 
 ## DESIGN STEPS
