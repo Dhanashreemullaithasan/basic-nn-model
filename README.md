@@ -48,43 +48,81 @@ Evaluate the model with the testing data.
 ### Name: DHANASHREE M
 ### Register Number: 212221230018
 ```
+
+
 import pandas as pd
+import sklearn
+import tensorflow
+from tensorflow import keras
+     
+
 from sklearn.model_selection import train_test_split
+     
+
 from sklearn.preprocessing import MinMaxScaler
+     
+
 from tensorflow.keras.models import Sequential
+
+     
+
 from tensorflow.keras.layers import Dense
+     
+
 from google.colab import auth
 import gspread
 from google.auth import default
+     
+
+dataset=pd.read_csv('/content/EX1 - Sheet1.csv')
+     
+
 auth.authenticate_user()
-creds,_=default()
-gc=gspread.authorize(creds)
-worksheet=gc.open('e1').sheet1
-data=worksheet.get_all_values()
-dataset1=pd.DataFrame(data[1:],columns=data[0])
-dataset1=dataset1.astype(float)
-dataset1.head()
-x=dataset1.values
-y=dataset1.values
+creds,_ = default()
+gc = gspread.authorize(creds)
+     
+
+worksheet = gc.open('EX1').sheet1
+data = worksheet.get_all_values()
+     
+
+dataset=pd.DataFrame(data[1:],columns=data[0])
+dataset = dataset.astype({'x':'float'})
+dataset = dataset.astype({'y':'float'})
+
+dataset.head()
+
+x=dataset[['x']].values
+y=dataset[['y']].values
+     
+
 x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.33,random_state=33)
-Scaler=MinMaxScaler()
-Scaler.fit(x_train)
-x_train=Scaler.transform(x_train)
-ai_brain=Sequential([
-    Dense(8,activation='relu'),
-    Dense(10,activation='relu'),
-    Dense(1)
-])
-ai_brain.compile(optimizer='rmsprop',loss='mse')
+     
+
+scaler=MinMaxScaler()
+     
+
+scaler.fit(x_train)
+
+
+x_train1 = scaler.transform(x_train)
+     
+
+ai_brain = Sequential([Dense(8,activation='relu'),
+                       Dense(10,activation='relu'),
+                       Dense(1)])
+     
+
+ai_brain.compile(optimizer='rmsprop',loss ='mse')
 ai_brain.fit(x_train,y_train,epochs=20)
+
 loss_df=pd.DataFrame(ai_brain.history.history)
 loss_df.plot()
 ai_brain.evaluate(x_test,y_test)
-X_n1 = [[3,5]]
-X_n1_1 = Scaler.transform(X_n1)
-ai_brain.predict(X_n1_1)
+X_n1 = [[3]]
 
-
+X_n1_1 = scaler.transform(X_n1)
+ai_brain.predict(X_n1_1)  
 
 ```
 ## Dataset Information
